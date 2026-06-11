@@ -7,3 +7,4 @@ class Menu:
 
     def run(self, ):
         pass
+    print ("passando")
