@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from code.Entity import Entity
+# from code.EntityFactory import EntityFactory
 
 class Background (Entity):
     def __init__(self, name: str, position: tuple):
