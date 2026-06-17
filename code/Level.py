@@ -7,7 +7,7 @@ from pygame import Surface, Rect
 from pygame.examples.grid import WINDOW_WIDTH
 from pygame.font import Font
 
-from code.Const import COL_WHITE, WIN_HEIGHT, WIN_WIDTH
+from code.Const import COL_WHITE, WIN_HEIGHT, WIN_WIDTH, MENU_OPTION
 from code.Player import Player
 from code.EntityFactory import EntityFactory
 from code.Entity import Entity
@@ -22,6 +22,9 @@ class Level:
         self.entity_list: list[Entity] = []
         self.entity_list.extend(EntityFactory.create_entities("Level1Bg"))  # creates the entities for the background
         self.entity_list.append(EntityFactory.create_entities("Player1"))  # creates the player entity
+
+        if game_mode in [MENU_OPTION[1],MENU_OPTION[2]]:
+            self.entity_list.append(EntityFactory.create_entities("Player2"))  # creates the second player entity
 
     def run(self, ):
         pygame.mixer_music.load("./assets/" +"Level1" + ".mp3")
