@@ -21,6 +21,7 @@ class Level:
         self.game_mode = game_mode  # game mode: 1 ou  2 players
         self.entity_list: list[Entity] = []
         self.entity_list.extend(EntityFactory.create_entities("Level1Bg"))  # creates the entities for the background
+        self.entity_list.append(EntityFactory.create_entities("Player1"))  # creates the player entity
 
     def run(self, ):
         pygame.mixer_music.load("./assets/" +"Level1" + ".mp3")
