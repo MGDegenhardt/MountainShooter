@@ -9,6 +9,7 @@ from pygame.examples.grid import WINDOW_WIDTH
 from pygame.font import Font
 
 from code.Const import COL_WHITE, WIN_HEIGHT, WIN_WIDTH, MENU_OPTION, EVENT_ENEMY, SPAWN_TIME
+from code.EntityMediator import EntityMediator
 from code.Player import Player
 from code.EntityFactory import EntityFactory
 from code.Entity import Entity
@@ -54,6 +55,9 @@ class Level:
             self.level_text(14, f"entidades: {len(self.entity_list)}", COL_WHITE, (10, WIN_HEIGHT - 20))
 
             pygame.display.flip()
+            # here the collisions and live are tested
+            EntityMediator.verify_collision(entity_list=self.entity_list)
+            EntityMediator.verify_health(entity_list=self.entity_list)
 
     def level_text(self, text_size: int, text: str, text_color: tuple, text_position: tuple):
         text_font: Font = pygame.font.SysFont(name="Lucida Sans Typewriter", size=text_size)
