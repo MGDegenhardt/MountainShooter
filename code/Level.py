@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+import random
 import sys
 
 import pygame
@@ -7,7 +8,7 @@ from pygame import Surface, Rect
 from pygame.examples.grid import WINDOW_WIDTH
 from pygame.font import Font
 
-from code.Const import COL_WHITE, WIN_HEIGHT, WIN_WIDTH, MENU_OPTION
+from code.Const import COL_WHITE, WIN_HEIGHT, WIN_WIDTH, MENU_OPTION, EVENT_ENEMY, SPAWN_TIME
 from code.Player import Player
 from code.EntityFactory import EntityFactory
 from code.Entity import Entity
@@ -23,11 +24,14 @@ class Level:
         self.entity_list.extend(EntityFactory.create_entities("Level1Bg"))  # creates the entities for the background
         self.entity_list.append(EntityFactory.create_entities("Player1"))  # creates the player entity
 
-        if game_mode in [MENU_OPTION[1],MENU_OPTION[2]]:
+        if game_mode in [MENU_OPTION[1], MENU_OPTION[2]]:
             self.entity_list.append(EntityFactory.create_entities("Player2"))  # creates the second player entity
 
+        # at every nth seconds an enemy should be spawn
+        pygame.time.set_timer(EVENT_ENEMY, SPAWN_TIME)
+
     def run(self, ):
-        pygame.mixer_music.load("./assets/" +"Level1" + ".mp3")
+        pygame.mixer_music.load("./assets/" + "Level1" + ".mp3")
         pygame.mixer_music.play(-1)
         clock = pygame.time.Clock()
 
@@ -40,6 +44,9 @@ class Level:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+                if event.type == EVENT_ENEMY:
+                    choice = random.choice(("Enemy1", "Enemy2"))
+                    self.entity_list.append(EntityFactory.create_entities(choice))
 
             # printing game information on the screen
             self.level_text(14, f"{self.name} + Timeout:{self.timeout / 1000 : .1f}s", COL_WHITE, (10, 5))
@@ -54,4 +61,4 @@ class Level:
         text_rect: Rect = text_surf.get_rect(left=text_position[0], top=text_position[1])
         self.window.blit(text_surf, text_rect)
 
-        #pass
+        # pass

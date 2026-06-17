@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-
-from Entity import Entity
+from code.Const import ENTITY_SPEED, WIN_WIDTH
+from code.Entity import Entity
 
 
 class Enemy(Entity):
@@ -9,4 +9,7 @@ class Enemy(Entity):
         super().__init__(name, position)
 
     def move(self ):
-        pass
+        speed = ENTITY_SPEED[self.name]
+        self.rect.centerx -= speed  # moves the background items in accord it's speed
+        if self.rect.right <= 0:  # when the right side of the picture reaches the zero
+            self.rect.left = WIN_WIDTH  # sets the left side to the end of the screen
