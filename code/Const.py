@@ -16,12 +16,23 @@ ENTITY_SPEED = {
     "Level1Bg5": 5,
     "Level1Bg6": 6,
     "Player1": 2,
+    "Player1Shot": 2,
     "Player2": 2,
+    "Player2Shot": 2,
     "Enemy1": 2,
-    "Enemy2": 1
+    "Enemy1Shot": 4,
+    "Enemy2": 1,
+    "Enemy2Shot": 5,
 }
 
-# Const H ==> health dos objetos
+ENTITY_SHOT_DELAY = {
+    "Player1": 10,
+    "Player2": 10,
+    "Enemy1": 90,
+    "Enemy2": 130
+}
+
+# Const H ==> health dos objects
 ENTITY_HEALTH = {
     "Level1Bg0": 999,
     "Level1Bg1": 999,
@@ -55,7 +66,7 @@ PLAYER_KEY_LEFT = {"Player1": pygame.K_LEFT,
                    "Player2": pygame.K_a}
 PLAYER_KEY_RIGHT = {"Player1": pygame.K_RIGHT,
                     "Player2": pygame.K_d}
-PLAYER_KEY_SHOOT = {"Player1": pygame.K_RCTRL,
+PLAYER_KEY_SHOOT = {"Player1": pygame.K_SPACE,
                     "Player2": pygame.K_LCTRL}
 
 # Const S

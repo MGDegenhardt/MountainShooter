@@ -12,7 +12,7 @@ class Entity(ABC):
         self.surf = pygame.image.load("./assets/" + name + ".png").convert_alpha() # creates a generic image
         self.rect = self.surf.get_rect(left = position[0], top = position[1]) # creates yhe rectangle were the image will be displayed
         self.speed = 0
-        self.health = ENTITY_HEALTH[self.name]
+        self.health = ENTITY_HEALTH.get(self.name, 1)
 
     @abstractmethod
     def move(self, ):

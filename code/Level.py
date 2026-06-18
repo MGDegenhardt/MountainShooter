@@ -9,6 +9,7 @@ from pygame.examples.grid import WINDOW_WIDTH
 from pygame.font import Font
 
 from code.Const import COL_WHITE, WIN_HEIGHT, WIN_WIDTH, MENU_OPTION, EVENT_ENEMY, SPAWN_TIME
+from code.Enemy import Enemy
 from code.EntityMediator import EntityMediator
 from code.Player import Player
 from code.EntityFactory import EntityFactory
@@ -41,6 +42,11 @@ class Level:
             for ent in self.entity_list:
                 self.window.blit(source=ent.surf, dest=ent.rect)
                 ent.move()
+                if isinstance(ent, (Player, Enemy)):
+                    shoot = ent.Shoot()
+                    if shoot is not None:
+                        self.entity_list.append(shoot)
+
             for event in pygame.event.get():  # this event verifies if the app should close
                 if event.type == pygame.QUIT:
                     pygame.quit()

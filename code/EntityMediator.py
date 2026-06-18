@@ -1,5 +1,8 @@
+from code.Const import WIN_WIDTH
 from code.Enemy import Enemy
+from code.EnemyShot import EnemyShot
 from code.Entity import Entity
+from code.PlayerShot import PlayerShot
 
 
 class EntityMediator:
@@ -7,7 +10,13 @@ class EntityMediator:
     # this methos verifies if the images (sprites) are on the screen, if not, attrib zero to the heal so it can be destroyed
     def __verify_collision_window(ent: Entity):  # the __ indicates that this method only happens into this class
         if isinstance(ent, Enemy):
-            if ent.rect.right < 0:
+            if ent.rect.right <= 0:
+                ent.health = 0
+        if isinstance(ent, PlayerShot): # destroys the player shoot when it get outside window
+            if ent.rect.left >= WIN_WIDTH:
+                ent.health = 0
+        if isinstance(ent, EnemyShot): # destroys the enemy shoot when it get outside window
+            if ent.rect.right <= 0:
                 ent.health = 0
 
     @staticmethod
