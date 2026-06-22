@@ -10,7 +10,7 @@ class Enemy(Entity):
         super().__init__(name, position)
         self.shoot_delay = ENTITY_SHOT_DELAY[self.name]
 
-    def move(self ):
+    def move(self):
         speed = ENTITY_SPEED[self.name]
         self.rect.centerx -= speed  # moves the ENEMY towards the left
 
@@ -19,5 +19,3 @@ class Enemy(Entity):
         if self.shoot_delay == 0:
             self.shoot_delay = ENTITY_SHOT_DELAY[self.name]
             return EnemyShot(name=f"{self.name}Shot", position=(self.rect.centerx, self.rect.centery))
-
-        pass

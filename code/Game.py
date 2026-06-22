@@ -1,6 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import pygame
+import sys
+
+from code.Score import Score
+
 from code.Const import WIN_WIDTH, WIN_HEIGHT, MENU_OPTION
 from code.Level import Level
 from code.Menu import Menu
@@ -12,30 +16,27 @@ class Game:
         self.window = pygame.display.set_mode(size=(WIN_WIDTH, WIN_HEIGHT))
 
     def run(self, ):
-
         while True:
+            score = Score(self.window)
             menu = Menu(self.window)
             menu_return = menu.run()
 
-            if menu_return in [MENU_OPTION[0],MENU_OPTION[1],MENU_OPTION[2]] :   # starts a new level for 1 player
-                level = Level(self.window, "Level 1", menu_return)
-                level_return = level.run()
+            if menu_return in [MENU_OPTION[0], MENU_OPTION[1], MENU_OPTION[2]]:  # starts a new level for 1 player
+                player_score = [0, 0]  # this list works for both player [Player1, Player2]
+                level = Level(self.window, "Level1", menu_return, player_score)
+                level_return = level.run(player_score)
+                if level_return:  # it's the same of if level_return == true
+                    level = Level(self.window, "Level2", menu_return, player_score)
+                    level_return = level.run(player_score)
+                    if level_return:
+                        score.save(menu_return, player_score)
 
 
-            elif menu_return == MENU_OPTION[4]: # runs the close option
+            elif menu_return == MENU_OPTION[4]:  # runs the close option
                 pygame.quit()
                 quit()
+            elif menu_return == MENU_OPTION[3]:
+                score.show()
             else:
-                pass
-
-
-
-
-            # check for all events
-            # for event in pygame.event.get():
-            #   if event.type == pygame.QUIT:
-            #        pygame.quit()  # closes the game window
-            #       quit()  # end pygame
-
-
-
+                pygame.quit()
+                sys.exit()

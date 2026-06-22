@@ -10,3 +10,4 @@ class PlayerShot(Entity):
     def move(self):
         self.rect.centerx += ENTITY_SPEED.get(self.name)
 
+

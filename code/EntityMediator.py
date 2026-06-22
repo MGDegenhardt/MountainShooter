@@ -45,7 +45,17 @@ class EntityMediator:
                 ent1.last_dmg = ent2.name
                 ent2.last_dmg = ent1.name
 
-    @staticmethod   # calculates the score while playing
+    @staticmethod
+    def verify_collision(entity_list: list[Entity]):
+        # for entity in entity_list:
+        for i in range(len(entity_list)):
+            entity1 = entity_list[i]
+            EntityMediator.__verify_collision_window(entity1)
+            for j in range(i + 1, len(entity_list)):
+                entity2 = entity_list[j]
+                EntityMediator.__verify_collision_entity(entity1, entity2)
+
+    @staticmethod  # calculates the score while playing
     def __give_score(enemy: Enemy, entity_list: list[Entity]):
         if enemy.last_dmg == "Player1Shot":
             for ent in entity_list:
@@ -56,22 +66,12 @@ class EntityMediator:
                 if ent.name == "Player2":
                     ent.score += enemy.score
 
-
     @staticmethod
-    def verify_collision(entity_list: list[Entity]):
-        # for entity in entity_list:
-        for i in range(len(entity_list)):
-            entity1 = entity_list[i]
-            EntityMediator.__verify_collision_window(entity1)
-            for j in range(1 + i, len(entity_list)):
-                entity2 = entity_list[j]
-                EntityMediator.__verify_collision_entity(entity1, entity2)
-
-    @staticmethod
-    # this methos virifies if the health of an entity is lower than zero, if it's, removes it
+    # this method verifies if the health of an entity is lower than zero, if it's, removes it
     def verify_health(entity_list: list[Entity]):
         for ent in entity_list:
             if ent.health <= 0:
                 if isinstance(ent, Enemy):
                     EntityMediator.__give_score(ent, entity_list)
                 entity_list.remove(ent)
+
