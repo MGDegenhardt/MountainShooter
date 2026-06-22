@@ -1,13 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-import pygame
 import sys
-
-from code.Score import Score
-
+import pygame
 from code.Const import WIN_WIDTH, WIN_HEIGHT, MENU_OPTION
 from code.Level import Level
 from code.Menu import Menu
+from code.Score import Score
 
 
 class Game:
@@ -15,28 +13,28 @@ class Game:
         pygame.init()
         self.window = pygame.display.set_mode(size=(WIN_WIDTH, WIN_HEIGHT))
 
-    def run(self, ):
+    def run(self):
         while True:
             score = Score(self.window)
             menu = Menu(self.window)
             menu_return = menu.run()
 
-            if menu_return in [MENU_OPTION[0], MENU_OPTION[1], MENU_OPTION[2]]:  # starts a new level for 1 player
+            if menu_return in [MENU_OPTION[0], MENU_OPTION[1], MENU_OPTION[2]]:   # starts a new level for 1 player
                 player_score = [0, 0]  # this list works for both player [Player1, Player2]
-                level = Level(self.window, "Level1", menu_return, player_score)
+                level = Level(self.window, 'Level1', menu_return, player_score)
                 level_return = level.run(player_score)
                 if level_return:  # it's the same of if level_return == true
-                    level = Level(self.window, "Level2", menu_return, player_score)
+                    level = Level(self.window, 'Level2', menu_return, player_score)
                     level_return = level.run(player_score)
                     if level_return:
                         score.save(menu_return, player_score)
 
-
-            elif menu_return == MENU_OPTION[4]:  # runs the close option
-                pygame.quit()
-                quit()
-            elif menu_return == MENU_OPTION[3]:
+            elif menu_return == MENU_OPTION[3]: # shows the game's score
                 score.show()
+            elif menu_return == MENU_OPTION[4]: # runs the close option
+                pygame.quit()  # Close Window
+                quit()  # end pygame
             else:
                 pygame.quit()
                 sys.exit()
+

@@ -1,7 +1,7 @@
 import sqlite3
 
 
-class DBProxy:
+class DBProxy:      # start using databases, creation of DB and formating the fields
     def __init__(self, db_name: str):
         self.db_name = db_name
         self.connection = sqlite3.connect(db_name)
@@ -14,7 +14,7 @@ class DBProxy:
                                 '''
                                 )
 
-    def save(self, score_dict: dict):
+    def save(self, score_dict: dict):   # add data into the table (name and score)
         self.connection.execute('INSERT INTO dados (name, score, date) VALUES (:name, :score, :date)', score_dict)
         self.connection.commit()
 
